@@ -14,7 +14,15 @@
 - [Vite JS](#vite-js)
 
 - [TypeScript](#typescript)
-  - [ What problems does TypeScript solves?](#what-problems-does-typescript-solves)
+
+  - [What problems does TypeScript solves?](#what-problems-does-typescript-solves)
+  - [Variables](#variables)
+  - [Arrays](#arrays)
+  - [Objects](#objects)
+  - [Functions](#functions)
+  - [Interfaces](#interfaces)
+  - [Types](#types)
+
   </details>
 
 ## Node JS
@@ -122,6 +130,8 @@ Then cd in to your project, install the dependencies with `npm install` and then
 
 TypeScript is a superset of JavaScript that adds static typing to the language. It was created to address several challenges and issues that developers commonly face in large and complex JavaScript codebases. It is not an entirely new programming language, since any valid JavaScript code is also valid TypeScript code, but it extends JavaScript by adding optional static typing and additional features that aid in the development of large-scale and maintainable applications.
 
+[TypeScript Homepage](https://www.typescriptlang.org/)
+
 [Back to top](#vite-js-och-typescript)
 
 ### What problems does TypeScript solves?
@@ -156,4 +166,14 @@ TypeScript is a superset of JavaScript that adds static typing to the language. 
 - **Problem in JavaScript:** Without type information, it can be challenging to ensure that functions are used correctly, leading to potential bugs.
 - **Solution in TypeScript:** TypeScript helps improve code quality by providing a mechanism for expressing and enforcing contracts between different parts of the code. This can lead to more robust and reliable applications.
 
+### Variables
 
+### Arrays
+
+### Objects
+
+### Functions
+
+### Interfaces
+
+### Types
