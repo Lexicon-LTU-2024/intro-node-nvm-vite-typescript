@@ -155,5 +155,3 @@ TypeScript is a superset of JavaScript that adds static typing to the language. 
 
 - **Problem in JavaScript:** Without type information, it can be challenging to ensure that functions are used correctly, leading to potential bugs.
 - **Solution in TypeScript:** TypeScript helps improve code quality by providing a mechanism for expressing and enforcing contracts between different parts of the code. This can lead to more robust and reliable applications.
-
-
