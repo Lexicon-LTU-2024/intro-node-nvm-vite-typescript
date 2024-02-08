@@ -19,9 +19,10 @@
   - [Variables](#variables)
   - [Arrays](#arrays)
   - [Objects](#objects)
-  - [Functions](#functions)
   - [Interfaces](#interfaces)
-  - [Types](#types)
+  - [Functions](#functions)
+  - [Functions in interfaces](#functions-in-interfaces)
+  - [Union Types](#union-types)
 
   </details>
 
@@ -166,14 +167,213 @@ TypeScript is a superset of JavaScript that adds static typing to the language. 
 - **Problem in JavaScript:** Without type information, it can be challenging to ensure that functions are used correctly, leading to potential bugs.
 - **Solution in TypeScript:** TypeScript helps improve code quality by providing a mechanism for expressing and enforcing contracts between different parts of the code. This can lead to more robust and reliable applications.
 
+[Back to top](#vite-js-och-typescript)
+
 ### Variables
+
+Variabels is really simple to type up in TS, just add a colon and the specific type after the variable name.
+
+```ts
+let age: number;
+```
+
+This tells TS that the variabel `age` is a variable that will contain a value of type number in the future. TS will then prevent you from assigning any other type of value to that variable.
+
+```ts
+age = 10; // Works
+age = "14"; // Won't work
+```
+
+Same with strings and booleans
+
+```ts
+let firstName: string = "Niklas";
+firstName = "Henrik"; // Works
+firstName = true; // Won't work
+
+let isEducated: boolean = true;
+isEducated = false; // Works
+isEducated = "true"; // Won't work
+isEducated = 1; //Won't work
+```
+
+In the above example we declare and assign a value to the variables straight away. We add the specific type as well.
+
+On thing to think about is that TS can infer types depending on the code you write.
+
+```ts
+let name = "Niklas";
+name = 10; // Won't work
+name = "Henrik"; // Works
+```
+
+In this case we have created a variable but not restricted it to a type, but we have given it a value. Here TS will read that value and set that to the allowed type on that variable. It infers it in other words.
+
+[Back to top](#vite-js-och-typescript)
 
 ### Arrays
 
+Arrays work in the same way as variables but here you use a combination of the type and square brackets. Like this:
+
+```ts
+const arr: string[] = ["Niklas", "Henrik", "Sofia"];
+
+arr.push("Erik"); // Works
+arr.push(true); // Won't work
+```
+
+The `string[]` says to TS that this variable can only be an array containing of string values. It works the same way if it was a `number[]` or `boolean[]` array as well.
+
+[Back to top](#vite-js-och-typescript)
+
 ### Objects
 
-### Functions
+Objects are a little bit more complex to type up, we need another tool, but more about that later. Let's just create an object.
+
+```ts
+const car = {
+  color: "red",
+};
+```
+
+This is a car, it has one attribute that is the color of the car and that value is of type string. If I try to add some other attribute to the car in the code, it won't work.
+
+```ts
+car.color = "green"; // Works
+car.make = "Volvo"; // Won't work
+```
+
+Above we can see that changing the value of color is fine. We expected that, but we can't create the make-attribute? That's because TS infers the type on this object when we create it, and since we only added one attribute we can only have that particular attribute on our object and its value has to be a string. We could add the make-attribute to the declaration but the issue still remains. If we create an object with a set amount of attributes, then those are the only ones allowed in there. This is actually a good thing because we don't want developers or users to just add random values to our objects. That could result in very strange behaviours in our application.
+
+We do however want more control on this. That TS infers types for us is nice, but we would like to do that on our own. Enter interfaces.
+
+[Back to top](#vite-js-och-typescript)
 
 ### Interfaces
 
-### Types
+Interfaces is a special kind tool in TS that allows us to restrict the shape and size of an object. We can with an interface tell TS exactly how many attributes on what data types those value should have beforehand. Let's create an interface for our car from previous example.
+
+```ts
+interface ICar {
+  color: string;
+  make: string;
+  model: string;
+  year: number;
+  manual: boolean;
+}
+```
+
+Creating an interface is really easy. Just a keyword, a name and then brackets. The naming convention here on the name is a captial "I" in the beginning denoting an Interface and then `PascalCase` on the rest of the name.
+
+In the interface we have decided to only allow five different attributes with set data types for each attribute. Some string, a number and an boolean. To apply this interface to oour object we use colon in just the same way as with variables and arrays.
+
+```js
+const car: ICar = {
+  color: "red",
+  make: "Saab",
+  manual: false,
+  model: "95",
+  year: 2005,
+};
+```
+
+The good thing here is that VSC will aid us in what attributes that goes in to this object. Just click `ctrl+space` _( on windows )_ inside the object to get the suggestions. We don't need to remember what goes in there because TS will do that for us. It will also restrict the possibility to add new attributes on the fly or change the data type of the values, but that's all good and something that we want.
+
+[More on interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#interfaces)
+
+[Back to top](#vite-js-och-typescript)
+
+### Functions
+
+On functions there exists two typing possibilities. One for typing up the arguments and one for typing up the return value. These two mustn't be the same of course, your are free to return any type from any set of arguments.
+
+Typing functions though, is not always necessary since TS will always infer the type depending on the arguments that you pop in _( provided that they are properly typed )_. But good convention is to always type these up yourself.
+
+Function with return value:
+
+```js
+// Void as return value (nothing is returned)
+function greeting(): void {
+  console.log("Hello there!");
+}
+
+// String as return value
+function sayAName(): string {
+  return "I am saying your name";
+}
+```
+
+Function with arguments and return value:
+
+```js
+// Takes two numbers as arguments and return a number
+function addNumbers(num1: number, num2: number): number {
+  return num1 + num2;
+}
+
+// Arrow function alternative
+const addNumbers = (num1: number, num2: number): number => {
+  return num1 + num2;
+};
+
+// Takes a string array as argument and returns a string array
+function sortStringsArray(arr: string[]): string[] {
+  return arr.sort();
+}
+
+// Arrow function alternative
+const sortStringsArray = (arr: string[]): string[] => {
+  return arr.sort();
+};
+```
+
+Just type the arguments as you would variables and don't forget the return value. If it returns nothing, add `void` to the return type.
+
+[Back to top](#vite-js-och-typescript)
+
+### Functions in interfaces
+
+If you want methods in your objects you also need to add them to the interface.
+
+Take this object for instance:
+
+```ts
+const car: ICar = {
+  make: "Saab",
+  model: "95",
+  tankCurrentLitres: 12,
+  tankMax: 60,
+  start: () => {
+    console.log(`${this.make} ${this.model} is firing up!`);
+  },
+  refuel: (litresOfPetrol: number): null | number => {
+    const litresInTank = this.tankCurrentLitres + litresOfPetrol;
+    if (litresInTank > this.tankMax) {
+      console.error("You can't fill it up above tankMax");
+      return null;
+    }
+    return litresInTank;
+  },
+};
+```
+
+The interface for this object would look like this:
+
+```ts
+interface ICar {
+  make: string;
+  model: string;
+  tankCurrentVolume: number;
+  tankMaxVolume: number;
+  start: () => void;
+  refuel: (litresOfPetrol: number) => null | number;
+}
+```
+
+The method `start` only executes some code, it has no arguments and no return value, so that's the type for the method. If we would have arguments they would go in the parenthesis like a normal function and the return type is what comes straight after the arrow.
+
+[Back to top](#vite-js-och-typescript)
+
+### Union Types
+
+The other method, the `refuel` is slightly more complex but still the arguments in the parenthesis and return value after the arrow. Only here we have a "|" between null and number? What does that mean? It's a union of two types. It can either return null or number and this cna be used on every previous example.
