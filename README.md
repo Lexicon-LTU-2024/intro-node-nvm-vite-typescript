@@ -90,9 +90,7 @@ Uninstall node on mac:
 
 Install nvm and then node:
 
-- [Install nvm on windows 10](https://www.freecodecamp.org/news/nvm-for-windows-how-to-download-and-install-node-version-manager-in-windows-10/)
-
-- [Install nvm on windows 11](https://realworlddev.hashnode.dev/installing-nvm-on-windows-11)
+- [Install nvm on windows](https://www.xda-developers.com/how-install-nvm-windows/)
 
 - [Install nvm on Mac](https://tecadmin.net/install-nvm-macos-with-homebrew/)
 
